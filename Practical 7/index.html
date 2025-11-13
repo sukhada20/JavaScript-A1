@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Traffic Light</title>
+  <script src="/_sdk/element_sdk.js"></script>
+  <style>
+    body {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    html {
+      height: 100%;
+    }
+
+    .container {
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 2rem;
+      color: #1f2937;
+    }
+
+    .traffic-light {
+      background: #2d3748;
+      border-radius: 1.5rem;
+      padding: 2rem 1.5rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      display: inline-block;
+    }
+
+    .light {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      margin: 1.5rem 0;
+      transition: all 0.3s ease;
+      box-shadow: inset 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .light.red {
+      background: #4a5568;
+    }
+
+    .light.red.active {
+      background: #ef4444;
+      box-shadow: 0 0 40px #ef4444, inset 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .light.yellow {
+      background: #4a5568;
+    }
+
+    .light.yellow.active {
+      background: #fbbf24;
+      box-shadow: 0 0 40px #fbbf24, inset 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .light.green {
+      background: #4a5568;
+    }
+
+    .light.green.active {
+      background: #10b981;
+      box-shadow: 0 0 40px #10b981, inset 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .timer {
+      margin-top: 2rem;
+      font-size: 3rem;
+      font-weight: bold;
+      color: #1f2937;
+      min-height: 4rem;
+    }
+
+    .status {
+      margin-top: 1rem;
+      font-size: 1.5rem;
+      color: #6b7280;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-weight: 600;
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+  <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
+ </head>
+ <body>
+  <div class="container">
+   <h1 id="title">Traffic Light</h1>
+   <div class="traffic-light">
+    <div class="light red" id="red-light"></div>
+    <div class="light yellow" id="yellow-light"></div>
+    <div class="light green" id="green-light"></div>
+   </div>
+   <div class="timer" id="timer">
+    5
+   </div>
+   <div class="status" id="status">
+    Stop
+   </div>
+  </div>
+  <script>
+    const defaultConfig = {
+      title_text: "Traffic Light",
+      background_color: "#f3f4f6",
+      text_color: "#1f2937",
+      font_family: "sans-serif",
+      font_size: 16
+    };
+
+    let currentState = 0; // 0 = red, 1 = yellow, 2 = green
+    const states = [
+      { name: 'red', duration: 5, status: 'Stop' },
+      { name: 'yellow', duration: 2, status: 'Caution' },
+      { name: 'green', duration: 5, status: 'Go' }
+    ];
+    let timeRemaining = states[0].duration;
+    let intervalId = null;
+
+    function updateLights() {
+      const redLight = document.getElementById('red-light');
+      const yellowLight = document.getElementById('yellow-light');
+      const greenLight = document.getElementById('green-light');
+      const timerEl = document.getElementById('timer');
+      const statusEl = document.getElementById('status');
+
+      redLight.classList.remove('active');
+      yellowLight.classList.remove('active');
+      greenLight.classList.remove('active');
+
+      const currentStateData = states[currentState];
+      document.getElementById(`${currentStateData.name}-light`).classList.add('active');
+      statusEl.textContent = currentStateData.status;
+      timerEl.textContent = timeRemaining;
+    }
+
+    function tick() {
+      timeRemaining--;
+      
+      if (timeRemaining <= 0) {
+        currentState = (currentState + 1) % states.length;
+        timeRemaining = states[currentState].duration;
+      }
+      
+      updateLights();
+    }
+
+    function startTrafficLight() {
+      updateLights();
+      intervalId = setInterval(tick, 1000);
+    }
+
+    async function onConfigChange(config) {
+      const titleEl = document.getElementById('title');
+      const timerEl = document.getElementById('timer');
+      const statusEl = document.getElementById('status');
+      
+      const customFont = config.font_family || defaultConfig.font_family;
+      const baseFontStack = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+      const baseSize = config.font_size || defaultConfig.font_size;
+      
+      document.body.style.background = config.background_color || defaultConfig.background_color;
+      
+      titleEl.textContent = config.title_text || defaultConfig.title_text;
+      titleEl.style.fontFamily = `${customFont}, ${baseFontStack}`;
+      titleEl.style.fontSize = `${baseSize * 2}px`;
+      titleEl.style.color = config.text_color || defaultConfig.text_color;
+      
+      timerEl.style.fontFamily = `${customFont}, ${baseFontStack}`;
+      timerEl.style.fontSize = `${baseSize * 3}px`;
+      timerEl.style.color = config.text_color || defaultConfig.text_color;
+      
+      statusEl.style.fontFamily = `${customFont}, ${baseFontStack}`;
+      statusEl.style.fontSize = `${baseSize * 1.5}px`;
+    }
+
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities: (config) => ({
+          recolorables: [
+            {
+              get: () => config.background_color || defaultConfig.background_color,
+              set: (value) => {
+                window.elementSdk.config.background_color = value;
+                window.elementSdk.setConfig({ background_color: value });
+              }
+            },
+            {
+              get: () => config.text_color || defaultConfig.text_color,
+              set: (value) => {
+                window.elementSdk.config.text_color = value;
+                window.elementSdk.setConfig({ text_color: value });
+              }
+            }
+          ],
+          borderables: [],
+          fontEditable: {
+            get: () => config.font_family || defaultConfig.font_family,
+            set: (value) => {
+              window.elementSdk.config.font_family = value;
+              window.elementSdk.setConfig({ font_family: value });
+            }
+          },
+          fontSizeable: {
+            get: () => config.font_size || defaultConfig.font_size,
+            set: (value) => {
+              window.elementSdk.config.font_size = value;
+              window.elementSdk.setConfig({ font_size: value });
+            }
+          }
+        }),
+        mapToEditPanelValues: (config) => new Map([
+          ["title_text", config.title_text || defaultConfig.title_text]
+        ])
+      });
+
+      onConfigChange(window.elementSdk.config);
+    } else {
+      onConfigChange(defaultConfig);
+    }
+
+    startTrafficLight();
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9995501c416284b9',t:'MTc2MjI3MTkwNy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
