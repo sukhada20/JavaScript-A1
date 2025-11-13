@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gym Admission Form</title>
+  <script src="/_sdk/data_sdk.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      box-sizing: border-box;
+    }
+    
+    * {
+      box-sizing: border-box;
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+ </head>
+ <body class="min-h-full flex items-center justify-center p-6">
+  <div class="w-full max-w-2xl">
+   <div class="rounded-lg shadow-xl p-8">
+    <div class="text-center mb-8">
+     <h1 id="form-title" class="text-4xl font-bold mb-2">Gym Membership Application</h1>
+     <p id="form-subtitle" class="text-lg">Join our fitness community today</p>
+    </div>
+    <form id="admission-form" class="space-y-6"><!-- Personal Information -->
+     <div class="space-y-4">
+      <h2 class="text-2xl font-semibold">Personal Information</h2>
+      <div><label for="full-name" class="block text-sm font-medium mb-2">Full Name *</label> <input type="text" id="full-name" required class="w-full px-4 py-3 rounded-lg border-2 focus:outline-none focus:ring-2 transition-all">
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+       <div><label for="email" class="block text-sm font-medium mb-2">Email Address *</label> <input type="email" id="email" required class="w-full px-4 py-3 rounded-lg border-2 focus:outline-none focus:ring-2 transition-all">
+       </div>
+       <div><label for="phone" class="block text-sm font-medium mb-2">Phone Number *</label> <input type="tel" id="phone" required class="w-full px-4 py-3 rounded-lg border-2 focus:outline-none focus:ring-2 transition-all">
+       </div>
+      </div>
+      <div><label for="dob" class="block text-sm font-medium mb-2">Date of Birth *</label> <input type="date" id="dob" required class="w-full px-4 py-3 rounded-lg border-2 focus:outline-none focus:ring-2 transition-all">
+      </div>
+     </div><!-- Emergency Contact -->
+     <div class="space-y-4">
+      <h2 class="text-2xl font-semibold">Emergency Contact</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+       <div><label for="emergency-contact" class="block text-sm font-medium mb-2">Contact Name *</label> <input type="text" id="emergency-contact" required class="w-full px-4 py-3 rounded-lg border-2 focus:outline-none focus:ring-2 transition-all">
+       </div>
+       <div><label for="emergency-phone" class="block text-sm font-medium mb-2">Contact Phone *</label> <input type="tel" id="emergency-phone" required class="w-full px-4 py-3 rounded-lg border-2 focus:outline-none focus:ring-2 transition-all">
+       </div>
+      </div>
+     </div><!-- Membership Type -->
+     <div class="space-y-4">
+      <h2 class="text-2xl font-semibold">Membership Details</h2>
+      <div><label for="membership-type" class="block text-sm font-medium mb-2">Membership Type *</label> <select id="membership-type" required class="w-full px-4 py-3 rounded-lg border-2 focus:outline-none focus:ring-2 transition-all"> <option value="">Select a membership</option> <option value="basic">Basic - $29/month</option> <option value="standard">Standard - $49/month</option> <option value="premium">Premium - $79/month</option> <option value="annual">Annual - $499/year</option> </select>
+      </div>
+     </div><!-- Medical Information -->
+     <div class="space-y-4">
+      <h2 class="text-2xl font-semibold">Health Information</h2>
+      <div><label for="medical-conditions" class="block text-sm font-medium mb-2">Medical Conditions or Injuries</label> <textarea id="medical-conditions" rows="4" placeholder="Please list any medical conditions, injuries, or physical limitations we should be aware of..." class="w-full px-4 py-3 rounded-lg border-2 focus:outline-none focus:ring-2 transition-all resize-none"></textarea>
+      </div>
+     </div><!-- Submit Button -->
+     <div class="pt-4"><button type="submit" id="submit-btn" class="w-full py-4 rounded-lg font-semibold text-lg transition-all transform hover:scale-105 focus:outline-none focus:ring-4"> <span id="submit-text">Submit Application</span> </button>
+     </div><!-- Success Message -->
+     <div id="success-message" class="hidden p-4 rounded-lg text-center">
+      <p class="font-semibold text-lg">✓ Application Submitted Successfully!</p>
+      <p class="text-sm mt-2">We'll contact you shortly to complete your membership.</p>
+     </div><!-- Error Message -->
+     <div id="error-message" class="hidden p-4 rounded-lg text-center">
+      <p class="font-semibold">⚠ Submission Failed</p>
+      <p class="text-sm mt-2">Please try again or contact us for assistance.</p>
+     </div>
+    </form>
+   </div>
+  </div>
+  <script>
+    const defaultConfig = {
+      background_color: "#f0f4f8",
+      surface_color: "#ffffff",
+      text_color: "#1a202c",
+      primary_action_color: "#3b82f6",
+      secondary_action_color: "#10b981",
+      font_family: "Inter",
+      font_size: 16,
+      form_title: "Gym Membership Application",
+      form_subtitle: "Join our fitness community today",
+      submit_button_text: "Submit Application"
+    };
+
+    let config = { ...defaultConfig };
+
+    // Data SDK Handler
+    const dataHandler = {
+      onDataChanged(data) {
+        // This is a write-only form, no need to display data
+      }
+    };
+
+    // Initialize Data SDK
+    async function initDataSdk() {
+      const result = await window.dataSdk.init(dataHandler);
+      if (!result.isOk) {
+        console.error("Failed to initialize Data SDK");
+      }
+    }
+
+    // Form submission handler
+    document.getElementById('admission-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const submitBtn = document.getElementById('submit-btn');
+      const submitText = document.getElementById('submit-text');
+      const successMessage = document.getElementById('success-message');
+      const errorMessage = document.getElementById('error-message');
+      
+      // Hide previous messages
+      successMessage.classList.add('hidden');
+      errorMessage.classList.add('hidden');
+      
+      // Show loading state
+      submitBtn.disabled = true;
+      submitText.textContent = 'Submitting...';
+      
+      const formData = {
+        full_name: document.getElementById('full-name').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        date_of_birth: document.getElementById('dob').value,
+        emergency_contact: document.getElementById('emergency-contact').value,
+        emergency_phone: document.getElementById('emergency-phone').value,
+        membership_type: document.getElementById('membership-type').value,
+        medical_conditions: document.getElementById('medical-conditions').value,
+        submitted_at: new Date().toISOString()
+      };
+      
+      const result = await window.dataSdk.create(formData);
+      
+      if (result.isOk) {
+        successMessage.classList.remove('hidden');
+        document.getElementById('admission-form').reset();
+        submitText.textContent = config.submit_button_text || defaultConfig.submit_button_text;
+        submitBtn.disabled = false;
+        
+        // Hide success message after 5 seconds
+        setTimeout(() => {
+          successMessage.classList.add('hidden');
+        }, 5000);
+      } else {
+        errorMessage.classList.remove('hidden');
+        submitText.textContent = config.submit_button_text || defaultConfig.submit_button_text;
+        submitBtn.disabled = false;
+        
+        // Hide error message after 5 seconds
+        setTimeout(() => {
+          errorMessage.classList.add('hidden');
+        }, 5000);
+      }
+    });
+
+    // Element SDK functions
+    async function onConfigChange(newConfig) {
+      config = { ...config, ...newConfig };
+      
+      const backgroundColor = config.background_color || defaultConfig.background_color;
+      const surfaceColor = config.surface_color || defaultConfig.surface_color;
+      const textColor = config.text_color || defaultConfig.text_color;
+      const primaryColor = config.primary_action_color || defaultConfig.primary_action_color;
+      const secondaryColor = config.secondary_action_color || defaultConfig.secondary_action_color;
+      const fontFamily = config.font_family || defaultConfig.font_family;
+      const fontSize = config.font_size || defaultConfig.font_size;
+      
+      // Apply colors
+      document.body.style.backgroundColor = backgroundColor;
+      document.querySelector('.rounded-lg.shadow-xl').style.backgroundColor = surfaceColor;
+      
+      // Apply text color
+      document.body.style.color = textColor;
+      document.querySelectorAll('h1, h2, label').forEach(el => {
+        el.style.color = textColor;
+      });
+      
+      // Apply input styling
+      document.querySelectorAll('input, select, textarea').forEach(el => {
+        el.style.backgroundColor = surfaceColor;
+        el.style.borderColor = textColor + '40';
+        el.style.color = textColor;
+      });
+      
+      // Apply button styling
+      const submitBtn = document.getElementById('submit-btn');
+      submitBtn.style.backgroundColor = primaryColor;
+      submitBtn.style.color = '#ffffff';
+      
+      // Apply success message styling
+      const successMessage = document.getElementById('success-message');
+      successMessage.style.backgroundColor = secondaryColor + '20';
+      successMessage.style.color = secondaryColor;
+      successMessage.style.borderColor = secondaryColor;
+      successMessage.style.borderWidth = '2px';
+      
+      // Apply error message styling
+      const errorMessage = document.getElementById('error-message');
+      errorMessage.style.backgroundColor = '#ef4444' + '20';
+      errorMessage.style.color = '#ef4444';
+      errorMessage.style.borderColor = '#ef4444';
+      errorMessage.style.borderWidth = '2px';
+      
+      // Apply font
+      const fontStack = `${fontFamily}, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif`;
+      document.body.style.fontFamily = fontStack;
+      
+      // Apply font sizes
+      document.getElementById('form-title').style.fontSize = `${fontSize * 2}px`;
+      document.getElementById('form-subtitle').style.fontSize = `${fontSize * 1.125}px`;
+      document.querySelectorAll('h2').forEach(el => {
+        el.style.fontSize = `${fontSize * 1.5}px`;
+      });
+      document.querySelectorAll('label').forEach(el => {
+        el.style.fontSize = `${fontSize * 0.875}px`;
+      });
+      document.querySelectorAll('input, select, textarea').forEach(el => {
+        el.style.fontSize = `${fontSize}px`;
+      });
+      document.getElementById('submit-btn').style.fontSize = `${fontSize * 1.125}px`;
+      
+      // Apply editable text
+      document.getElementById('form-title').textContent = config.form_title || defaultConfig.form_title;
+      document.getElementById('form-subtitle').textContent = config.form_subtitle || defaultConfig.form_subtitle;
+      document.getElementById('submit-text').textContent = config.submit_button_text || defaultConfig.submit_button_text;
+    }
+
+    function mapToCapabilities(config) {
+      return {
+        recolorables: [
+          {
+            get: () => config.background_color || defaultConfig.background_color,
+            set: (value) => {
+              config.background_color = value;
+              window.elementSdk.setConfig({ background_color: value });
+            }
+          },
+          {
+            get: () => config.surface_color || defaultConfig.surface_color,
+            set: (value) => {
+              config.surface_color = value;
+              window.elementSdk.setConfig({ surface_color: value });
+            }
+          },
+          {
+            get: () => config.text_color || defaultConfig.text_color,
+            set: (value) => {
+              config.text_color = value;
+              window.elementSdk.setConfig({ text_color: value });
+            }
+          },
+          {
+            get: () => config.primary_action_color || defaultConfig.primary_action_color,
+            set: (value) => {
+              config.primary_action_color = value;
+              window.elementSdk.setConfig({ primary_action_color: value });
+            }
+          },
+          {
+            get: () => config.secondary_action_color || defaultConfig.secondary_action_color,
+            set: (value) => {
+              config.secondary_action_color = value;
+              window.elementSdk.setConfig({ secondary_action_color: value });
+            }
+          }
+        ],
+        borderables: [],
+        fontEditable: {
+          get: () => config.font_family || defaultConfig.font_family,
+          set: (value) => {
+            config.font_family = value;
+            window.elementSdk.setConfig({ font_family: value });
+          }
+        },
+        fontSizeable: {
+          get: () => config.font_size || defaultConfig.font_size,
+          set: (value) => {
+            config.font_size = value;
+            window.elementSdk.setConfig({ font_size: value });
+          }
+        }
+      };
+    }
+
+    function mapToEditPanelValues(config) {
+      return new Map([
+        ["form_title", config.form_title || defaultConfig.form_title],
+        ["form_subtitle", config.form_subtitle || defaultConfig.form_subtitle],
+        ["submit_button_text", config.submit_button_text || defaultConfig.submit_button_text]
+      ]);
+    }
+
+    // Initialize SDKs
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities,
+        mapToEditPanelValues
+      });
+    }
+
+    if (window.dataSdk) {
+      initDataSdk();
+    }
+
+    // Initial render
+    onConfigChange(defaultConfig);
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9995587557889aa2',t:'MTc2MjI3MjI0OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
