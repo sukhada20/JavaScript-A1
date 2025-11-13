@@ -1,44 +1,97 @@
-# 🎓 Computer Science Department - SIT Nagpur Portal
+## 🧩 Practical 1 – Student Information Portal (SIT Nagpur)
 
-A modern, responsive web portal for the Computer Science Department at Symbiosis Institute of Technology (SIT), Nagpur.
+### 🎯 **Aim**
 
-This portal is designed to provide quick access to department information, a student database overview, and key academic/service details.
-
-## ✨ Features
-
-* **Department Focus:** Dedicated page for the Computer Science Department.
-* **Student Database:** A viewable, scrollable table featuring student records (Roll No, Name, Department, Year, and Resume link).
-* **Responsive Navigation:** Navigation links (`Home`, `Database`, `About`, `Contact`) with smooth scrolling to relevant sections.
-* **Interactive Hero Section:** Buttons for a **Welcome Message** (Alert) and **Student Information** (Modal).
-* **Student Info Modal:** A detailed, dismissible popup providing:
-    * Academic Information (Enrollment, Calendar, Grading System).
-    * Student Services (Library, Lab Facilities, Placement Support).
-    * Student Activities (Coding Competitions, Tech Clubs, Workshops).
-* **Department Overview:** Highlights of the department's core strengths (Modern Curriculum, Research Excellence, Industry Connect).
-* **Contact Information:** Detailed contact section with address, phone, and email.
-* **Modern Design:** Utilizes **Tailwind CSS** for a clean, professional, and gradient-enhanced look.
+To design a dynamic web page using **HTML**, **CSS (Tailwind)**, and **JavaScript** that displays student details and provides interactive features such as popups, modals, and smooth scrolling.
 
 ---
 
-## 💻 Technology Stack
+### 🧠 **Objective**
 
-* **HTML5:** Structure and Content.
-* **Tailwind CSS:** Utility-first framework for styling and responsiveness.
-* **JavaScript:** For interactive elements like the Welcome Alert, Student Info Modal, and smooth scrolling.
+* To understand the integration of **HTML, CSS, and JavaScript** for dynamic web design.
+* To implement **DOM manipulation** and **event handling** in JavaScript.
+* To enhance user interaction using **popups, modals, and smooth scrolling**.
+* To use **Tailwind CSS** for creating a responsive and modern interface.
 
 ---
 
-## 🛠️ Usage
+### 🧾 **Theory**
 
-### Installation
+JavaScript enables client-side interactivity by manipulating HTML elements and responding to user actions such as clicks or page load events.
+In this project, JavaScript is used to:
 
-No installation is required. Simply download the `Version 2.html` file and open it in any modern web browser.
+* Show welcome alerts or popups.
+* Display and hide student information dynamically.
+* Prevent background scrolling when modals are open.
+* Smoothly scroll between webpage sections.
 
-### Key JavaScript Functions
+Tailwind CSS provides utility classes for fast, responsive styling without writing custom CSS.
 
-| Function | Description | Trigger |
-| :--- | :--- | :--- |
-| `showWelcomeAlert()` | Displays a standard browser alert box with the message "Welcome to SIT Nagpur". | Triggered by the **Welcome Message** button and automatically 1 second after page load. |
-| `showStudentInfo()` | Displays the full-screen **Student Information Modal**. | Triggered by the **Student Information** button. |
-| `hideStudentInfo()` | Closes the **Student Information Modal** and restores background scrolling. | Triggered by the 'Close' button and the 'X' icon within the modal, or clicking the semi-transparent background. |
-| **Smooth Scrolling** | Implements smooth scrolling behavior for all internal navigation links (`#home`, `#database`, etc.). | Triggered by clicking a navigation link. |
+---
+
+### ⚙️ **Algorithm / Steps**
+
+1. **Create the HTML structure** for the webpage:
+
+   * Header and navigation bar.
+   * Hero section or welcome popup.
+   * Student information table.
+   * About, Contact, and Footer sections.
+
+2. **Add Tailwind CSS** via CDN for styling and layout.
+
+3. **Implement JavaScript functions:**
+
+   * `showWelcomeAlert()` – Displays a welcome message.
+   * `showStudentInfo()` – Opens the student information modal.
+   * `hideStudentInfo()` – Closes the modal and restores page scroll.
+   * `window.onload` – Triggers a welcome alert on page load.
+
+4. **Enhance interactivity**:
+
+   * Use event listeners for buttons and navigation links.
+   * Add smooth scrolling for anchor links.
+
+5. **Test responsiveness** and user interactions.
+
+---
+
+### 💻 **Code Explanation**
+
+* **HTML:** Defines structure and semantic layout of SIT Nagpur’s student portal.
+* **CSS (Tailwind):** Adds gradient backgrounds, hover effects, and responsive grids.
+* **JavaScript:** Controls popup visibility, alerts, and scrolling behavior dynamically.
+
+---
+
+### 🧪 **Output**
+
+* Displays a **responsive student information portal** with:
+
+  * A **welcome popup/alert**.
+  * A **styled table** containing student records (Name, Roll No, Department, Year, Resume link).
+  * **Modal window** for detailed student info and academic overview.
+  * **Smooth navigation** and interactive buttons.
+
+---
+
+### 📚 **Result**
+
+Successfully designed and implemented a **dynamic web page** using HTML, Tailwind CSS, and JavaScript, demonstrating interactive UI features and DOM manipulation.
+
+---
+
+### 📂 **Files**
+
+| File Name        | Description                                                                            |
+| ---------------- | -------------------------------------------------------------------------------------- |
+| `Version 1.html` | Portal with popup-based welcome interface and student database display                 |
+| `Version 2.html` | Enhanced portal with navigation bar, modal-based student info, and department overview |
+
+---
+
+### 🧰 **Technologies Used**
+
+* HTML5
+* Tailwind CSS
+* JavaScript (ES6)
