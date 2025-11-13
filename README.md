@@ -1,47 +1,56 @@
 # 💻 JavaScript Practical Repository
 
-### 🏫 Subject: JavaScript
+### 🏫 Subject: Web Programming Laboratory
 
-### 📚 Repository Purpose:
+### 🧑‍💻 Language: JavaScript
 
-This repository contains all the **JavaScript Practical Programs** implemented as part of the academic curriculum.
-Each practical demonstrates core JavaScript concepts — from basics like DOM manipulation and functions, to advanced applications such as dynamic UI design and real-world form handling.
+### 📘 Description
+
+This repository contains a collection of JavaScript practicals designed to demonstrate interactive web development — from basic DOM manipulation and logic-based programs to dynamic front-end projects and a complete full-stack mini project.
+
+Each practical focuses on implementing real-world functionality using **core JavaScript concepts**.
 
 ---
 
 ## 📂 **Index of Practicals**
 
-| No.              | Practical Title                             | Description                                                                                                                                                 | Link                                                      |
-| ---------------- | ------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------- |
-| **1**            | **Introduction to JavaScript**              | Basic structure of a JavaScript program – displaying messages, using alert, and printing output to the browser console.                                     | [Practical 1](./Practical%201/README.md)                  |
-| **2**            | **Variables, Data Types & Operators**       | Demonstrates the use of variables, data types, arithmetic and logical operators, and dynamic expression evaluation.                                         | [Practical 2](./Practical%202/README.md)                  |
-| **3**            | **Conditional Statements & Loops**          | Implements decision-making using if-else and switch statements, and repetition using for, while, and do-while loops.                                        | [Practical 3](./Practical%203/README.md)                  |
-| **4**            | **JavaScript Functions**                    | Illustrates creation and usage of user-defined functions and the use of parameters and return values.                                                       | [Practical 4](./Practical%204/README.md)                  |
-| **5**            | **Arrays and Objects in JavaScript**        | Demonstrates working with arrays, objects, and iteration techniques for structured data handling.                                                           | [Practical 5](./Practical%205/README.md)                  |
-| **6**            | **DOM Manipulation**                        | Shows how to dynamically modify webpage elements using JavaScript Document Object Model (DOM) methods.                                                      | [Practical 6](./Practical%206/README.md)                  |
-| **7**            | **Traffic Light Simulation**                | A real-time traffic light simulation with dynamic color changes and timers using JavaScript intervals and DOM updates.                                      | [Practical 7](./Practical%207/README.md)                  |
-| **8**            | **Gym Admission Form**                      | A form-based web application demonstrating input validation, DOM manipulation, and user feedback handling.                                                  | [Practical 8](./Practical%208/README.md)                  |
-| **Mini Project** | **STAYLY: Rental Property Listing Website** | A complete website combining HTML, CSS, and JavaScript — allowing users to rent, list, and find roommates. Features dynamic UI, forms, and theme switching. | [STAYLY Project](./Mini%20Project%20-%20STAYLY/README.md) |
+| No.              | Practical Title                                          | Implementation Summary                                                                                                                                                                                  | Link                                                             |
+| ---------------- | -------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| **1**            | **Student Information Portal (SIT Nagpur)**              | A web-based student portal displaying academic and personal information using HTML and JavaScript. Demonstrates data display through dynamic DOM manipulation and event-based content updates.          | [Practical 1](./practical%201/readme.md)                         |
+| **2**            | **Beauty Products Store (Interactive Shopping Web App)** | Implements an interactive shopping interface allowing users to explore and calculate the total cost of beauty products. Features basic JS event handling, DOM updates, and form validation.             | [Practical 2](./practical%202/readme.md)                         |
+| **3**            | **Marksheet Generator (GRADINATOR)**                     | A dynamic marksheet generator that takes subject marks as input, computes total, average, percentage, and grade, and displays results with visual feedback using JavaScript conditions and DOM methods. | [Practical 3](./practical%203/readme.md)                         |
+| **4**            | **Palindrome Checker**                                   | Checks whether a given word or phrase is a palindrome. Demonstrates use of string manipulation, condition checking, and user interaction through a clean UI.                                            | [Practical 4](./practical%204/readme.md)                         |
+| **5**            | **Array Min/Max Finder**                                 | Accepts a comma-separated list of numbers, finds the maximum and minimum values, and displays results interactively. Includes input validation and error handling for invalid entries.                  | [Practical 5](./practical%205/readme.md)                         |
+| **6**            | **Text Toolkit (Email Validator & String Processor)**    | A multi-functional text processing tool featuring email validation, string reversal, and vowel counting. Showcases regex validation, event listeners, and DOM manipulation.                             | [Practical 6](./practical%206/readme.md)                         |
+| **7**            | **Traffic Light Simulation**                             | Simulates an automated traffic light system using `setInterval()` to transition between red, yellow, and green lights with timers and status indicators.                                                | [Practical 7](./practical%207/readme.md)                         |
+| **8**            | **Gym Admission Form**                                   | A responsive and stylized gym membership form using Tailwind CSS and JavaScript. Implements form validation, success/error messages, and interactive data handling.                                     | [Practical 8](./practical%208/readme.md)                         |
+| **Mini Project** | **STAYLY: Rental Property Listing Website**              | A complete rental property web application enabling users to list, rent, and search for accommodations or roommates. Built with a modular front-end, form systems, and dynamic filtering.               | [Mini Project - STAYLY](./mini%20project%20-%20stayly/readme.md) |
 
 ---
 
-## 🧠 **Learning Outcomes**
+## 🧠 **Concepts Covered**
 
-By completing these practicals, the learner will:
-
-* Understand **JavaScript fundamentals** including syntax, control flow, and data handling.
-* Gain hands-on experience with **DOM manipulation** and **event-driven programming**.
-* Learn to **build interactive UIs** using JavaScript logic.
-* Develop the ability to **create and validate forms** dynamically.
-* Design and implement a **mini front-end project** integrating multiple web concepts.
+* JavaScript Basics: Variables, Loops, and Conditionals
+* DOM Manipulation and Event Handling
+* String and Array Operations
+* Input Validation and Error Handling
+* Timer Functions (`setTimeout()`, `setInterval()`)
+* Responsive Web UI with CSS and Tailwind
+* Form Handling and Data Processing
+* Full Stack Web Application (Mini Project)
 
 ---
 
-## 🧰 **Technologies Used**
+## 🧩 **Technologies Used**
 
-* **HTML5** – Page structure
-* **CSS3 / TailwindCSS** – Styling & layout
-* **JavaScript (ES6)** – Logic, events, DOM handling
+| Category                    | Tools                            |
+| --------------------------- | -------------------------------- |
+| **Frontend**                | HTML5, CSS3, TailwindCSS         |
+| **Logic Layer**             | JavaScript (ES6)                 |
+| **Backend (Mini Project)**  | Node.js, Express.js              |
+| **Database (Mini Project)** | MongoDB (Compass/Atlas)          |
+| **Tools & IDEs**            | VS Code, Chrome DevTools, GitHub |
+
 ---
 
 ## 🧩 **Project Structure**
@@ -79,10 +88,12 @@ JavaScript Practicals/
     └── readme.md
 ```
 
+---
+
 ## 🏁 **Conclusion**
 
-This repository demonstrates a complete learning journey in **JavaScript programming**, from foundational syntax and structures to advanced, interactive web applications.
-Each practical is **self-contained**, easy to run, and includes documentation for both academic and GitHub presentation purposes.
+This repository offers a complete step-by-step journey from foundational **JavaScript concepts** to a **fully functional web application**.
+Each practical introduces new logic, creativity, and interactivity, making this collection a strong showcase of JavaScript proficiency.
 
 ---
 
@@ -90,4 +101,4 @@ Each practical is **self-contained**, easy to run, and includes documentation fo
 
 ### 🏫 Course: *JavaScript Lab*
 
-### 💡 IDEs Used: *VS Code / Chrome DevTools *
+### 💡 IDEs Used: *VS Code / Chrome DevTools / Github *
