@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Marksheet Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #CDC1FF;
+            text-align: center;
+        }
+        h2 {
+            color: #AA60C8;
+            font-size: 36px;
+            margin: 20px 0;
+            font-family: playfair display, serif;
+        }
+        .container {
+            width: 90%;
+            margin: auto;
+            background: #F5EFFF;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #A594F9;
+            box-shadow: 0px 0px 10px gray;
+        }
+        input{
+            width: 60px;
+            padding: 5px;
+            margin: 5px;
+            border: 1px solid #A594F9;
+            background-color: #F5EFFF;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            border: 1px solid #A594F9;
+        }
+        table, th, td {
+            border: 2px solid #A594F9;
+        }
+        th {
+            color: #4b0082;
+            padding: 10px;
+        }
+        td {
+            padding: 8px;
+            text-align: center;
+            color: #CB9DF0;
+        }
+        .student-info ::placeholder{
+            width: auto;
+            margin-right: 10px;
+            color: #AA60C8;
+        }
+        .student-info input {
+            color: #AA60C8;
+        }
+        .btn {
+            background: #AA60C8;
+            color: white;
+            padding: 10px 20px;
+            margin: 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #marksheetTemplate {
+            display: none;
+            border: 10px solid #AA60C8;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: left;
+        }
+        #marksheetTemplate h3 {
+            text-align: center;
+            color: #AA60C8;
+        }
+        #marksheetTemplate.container {
+            background-color: white;
+        }
+        .header {
+            text-align: center;
+            font-weight: bold;
+            color: #4b0082;
+        }
+        .details {
+            display: flex;
+            justify-content: center;
+            margin: 10px 0;
+            color: #AA60C8;
+        }
+        #total {
+            color: #a756e0;
+        }
+        @media print {
+            .no-print {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h2>GRADINATOR</h2>
+
+    <div class="container">
+        <form id="marksForm">
+            <table>
+                <tr><th>Subject</th><th>Max Marks</th><th>Enter Marks</th></tr>
+                <tr><td>Compiler Construction</td><td>75</td><td><input type="number" max="75" name="cc"></td></tr>
+                <tr><td>Compiler Construction Lab</td><td>25</td><td><input type="number" max="25" name="cclab"></td></tr>
+                <tr><td>Computer Networks</td><td>75</td><td><input type="number" max="75" name="cn"></td></tr>
+                <tr><td>Computer Networks Lab</td><td>25</td><td><input type="number" max="25" name="cnlab"></td></tr>
+                <tr><td>Data Compression</td><td>100</td><td><input type="number" max="100" name="dc"></td></tr>
+                <tr><td>Project Based Learning</td><td>50</td><td><input type="number" max="50" name="pbl"></td></tr>
+                <tr><td>Flexi Credit Course</td><td>75</td><td><input type="number" max="75" name="fcc"></td></tr>
+                <tr><td>JavaScript</td><td>50</td><td><input type="number" max="50" name="js"></td></tr>
+                <tr><td>Internship</td><td>25</td><td><input type="number" max="25" name="intern"></td></tr>
+                <tr><td>Soft Computing</td><td>50</td><td><input type="number" max="50" name="sc"></td></tr>
+                <tr><td>Neural Networks</td><td>50</td><td><input type="number" max="50" name="nn"></td></tr>
+            </table>
+            <div class="student-info" style="margin: 15px 0;">
+                <input type="text" name="studentName" placeholder="Enter Name" required style="width:180px;">
+                <input type="text" name="rollNo" placeholder="Enter Roll No" required style="width:120px;">
+            </div>
+            <button type="button" class="btn" onclick="generateMarksheet()">Generate Marksheet</button>
+        </form>
+    </div>
+
+    <div id="marksheetTemplate" class="container">
+        <div class="header">
+            <h3>SYMBIOSIS INSTITUTE OF TECHNOLOGY, NAGPUR</h3>
+            <p>MARKS STATEMENT CUM CERTIFICATE<br>SEMESTER EXAMINATION</p>
+        </div>
+        <div class="details">
+            <b>Name:</b> <span id="studentName"></span> &nbsp;&nbsp; 
+            <b>Roll No:</b> <span id="displayRoll"></span> &nbsp;&nbsp;
+        </div>
+        <table id="resultTable"></table>
+        <h4 id="total"></h4>
+        <p style="text-align:right; margin-top:40px; color:#4b0082">
+            <img src="https://static.wixstatic.com/media/663675_2e4a8de789c340bdad2b55df9ba33f24~mv2.png/v1/fill/w_298,h_132,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/sukhada.png" alt="Signature" width="100"><br>
+            <b>Controller of Examinations</b>
+        </p>
+        <button id="downloadBtn" class="btn no-print" onclick="downloadPDF()">Download PDF</button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <script>
+        function getGrade(percentage) {
+            if (percentage >= 90) return "O";
+            if (percentage >= 80) return "A+";
+            if (percentage >= 70) return "A";
+            if (percentage >= 60) return "B+";
+            if (percentage >= 50) return "B";
+            if (percentage >= 45) return "C";
+            if (percentage >= 40) return "P";
+            return "F";
+        }
+
+        function generateMarksheet() {
+            let form = document.forms["marksForm"];
+
+            // student details
+            let name = form["studentName"].value;
+            let roll = form["rollNo"].value;
+            document.getElementById("studentName").textContent = name;
+            document.getElementById("displayRoll").textContent = roll;
+
+            let subjects = [
+                ["Compiler Construction", 75, form["cc"].value],
+                ["Compiler Construction Lab", 25, form["cclab"].value],
+                ["Computer Networks", 75, form["cn"].value],
+                ["Computer Networks Lab", 25, form["cnlab"].value],
+                ["Data Compression", 100, form["dc"].value],
+                ["Project Based Learning", 50, form["pbl"].value],
+                ["Flexi Credit Course", 75, form["fcc"].value],
+                ["JavaScript", 50, form["js"].value],
+                ["Internship", 25, form["intern"].value],
+                ["Soft Computing", 50, form["sc"].value],
+                ["Neural Networks", 50, form["nn"].value]
+            ];
+
+            let totalMarks = 0, obtained = 0;
+            let html = "<tr><th>Subject</th><th>Max Marks</th><th>Marks Obtained</th><th>Percentage</th><th>Grade</th></tr>";
+            subjects.forEach(sub => {
+                let per = (sub[2] / sub[1]) * 100;
+                if (isNaN(per)) per = 0;
+                html += `<tr><td>${sub[0]}</td><td>${sub[1]}</td><td>${sub[2]}</td><td>${per.toFixed(2)}%</td><td>${getGrade(per)}</td></tr>`;
+                totalMarks += parseInt(sub[1]);
+                obtained += parseInt(sub[2] || 0);
+            });
+
+            let overallPercent = (obtained / totalMarks) * 100;
+            html += `<tr><th colspan="5">Overall Percentage: ${overallPercent.toFixed(2)}% → Grade: ${getGrade(overallPercent)}</th></tr>`;
+
+            document.getElementById("resultTable").innerHTML = html;
+            document.getElementById("total").innerText = `Total: ${obtained} / ${totalMarks}`;
+            document.getElementById("marksheetTemplate").style.display = "block";
+        }
+
+        async function downloadPDF() {
+            const { jsPDF } = window.jspdf;
+            let doc = new jsPDF("p", "pt", "a4");
+
+            let downloadBtn = document.getElementById("downloadBtn");
+            downloadBtn.style.display = "none"; // hide before capturing
+
+            await html2canvas(document.getElementById("marksheetTemplate")).then(canvas => {
+                let imgData = canvas.toDataURL("image/png");
+                let imgProps= doc.getImageProperties(imgData);
+                let pdfWidth = doc.internal.pageSize.getWidth();
+                let pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+                doc.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+            });
+
+            downloadBtn.style.display = "block"; // show again after capture
+            doc.save("marksheet.pdf");
+        }
+    </script>
+</body>
+</html>
