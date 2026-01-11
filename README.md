@@ -101,4 +101,4 @@ Each practical introduces new logic, creativity, and interactivity, making this 
 
 ### 🏫 Course: *JavaScript Lab*
 
-### 💡 IDEs Used: *VS Code / Chrome DevTools / Github *
+### 💡 IDEs Used: *VS Code / Chrome DevTools / Github*
